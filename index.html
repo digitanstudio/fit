@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+<meta name="theme-color" content="#0e1016">
+<meta name="description" content="Osobný denník jedla a tréningu — naberanie svalu na zadku a stehnách, chudé brucho, bez mliečnej bielkoviny.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Môj plán">
+<title>Môj plán — jedlo a tréning</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="hdr">
+  <button id="prevDay" class="ibtn" aria-label="Predchádzajúci deň">&#8249;</button>
+  <div class="hdr-mid">
+    <strong id="dayTitle">Dnes</strong>
+    <small id="daySub">&nbsp;</small>
+  </div>
+  <button id="nextDay" class="ibtn" aria-label="Nasledujúci deň">&#8250;</button>
+  <button id="btnSettings" class="ibtn" aria-label="Nastavenia">&#9881;</button>
+</header>
+
+<div id="restBar" class="restbar" hidden>
+  <span id="restLeft">1:30</span>
+  <span class="restbar-txt">prestávka</span>
+  <button id="restStop" class="restbar-x" aria-label="Zrušiť prestávku">&times;</button>
+</div>
+
+<main id="main">
+  <section id="v-dnes"     class="view"></section>
+  <section id="v-jedlo"    class="view" hidden></section>
+  <section id="v-trening"  class="view" hidden></section>
+  <section id="v-prehlad"  class="view" hidden></section>
+  <section id="v-nastavenia" class="view" hidden></section>
+</main>
+
+<button id="fab" class="fab" aria-label="Pridať">+</button>
+
+<nav id="nav">
+  <button data-v="dnes" class="active">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+    <span>Dnes</span>
+  </button>
+  <button data-v="jedlo">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v8a2.5 2.5 0 0 0 5 0V3M8.5 11v10"/><path d="M16.5 3c-1.4 1.6-2 3.2-2 5 0 1.4.7 2.4 2 2.8V21"/></svg>
+    <span>Jedlo</span>
+  </button>
+  <button data-v="trening">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6M7 7v10M17 7v10M20 9v6M7 12h10"/></svg>
+    <span>Tréning</span>
+  </button>
+  <button data-v="prehlad">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H3"/></svg>
+    <span>Prehľad</span>
+  </button>
+</nav>
+
+<div id="sheet" class="sheet" hidden>
+  <div class="sheet-bd" data-close="1"></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true">
+    <div class="sheet-grab" data-close="1"><i></i></div>
+    <div id="sheetBody"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="js/foods-db.js"></script>
+<script src="js/exercises-db.js"></script>
+<script src="js/store.js"></script>
+<script src="js/targets.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/food.js"></script>
+<script src="js/training.js"></script>
+<script src="js/stats.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
