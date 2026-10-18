@@ -372,16 +372,24 @@
       'Appka nie je zdravotné poradenstvo.</div></div></div>'));
   }
 
+  /* v nahlade (appka bezi vnorena v inej stranke) prehliadac sťahovanie blokuje */
+  function isEmbedded() {
+    try { return global.self !== global.top; } catch (e) { return true; }
+  }
+
   function doExport() {
     var json = Store.exportJSON();
     var name = 'fitapp-zaloha-' + Store.today() + '.json';
+    var embedded = isEmbedded();
     UI.sheet({
       title: 'Export dát',
-      sub: 'Ulož súbor, alebo skopíruj text a vlož ho kam chceš.',
+      sub: embedded
+        ? 'V náhľade prehliadač sťahovanie blokuje — skopíruj text a ulož si ho. Na tvojej GitHub adrese bude fungovať aj uloženie súboru.'
+        : 'Ulož súbor, alebo skopíruj text a vlož ho kam chceš.',
       build: function (b) {
         var ta = h('<textarea readonly style="min-height:160px;font-size:12px"></textarea>');
         ta.value = json;
-        var dl = h('<button class="btn pri">Uložiť súbor ' + esc(name) + '</button>');
+        var dl = h('<button class="btn' + (embedded ? ' gho' : ' pri') + '">Uložiť súbor ' + esc(name) + '</button>');
         dl.onclick = function () {
           try {
             var blob = new Blob([json], { type: 'application/json' });
@@ -395,7 +403,7 @@
             UI.toast('Sťahovanie tu nefunguje — skopíruj text nižšie.');
           }
         };
-        var cp = h('<button class="btn">Skopírovať do schránky</button>');
+        var cp = h('<button class="btn' + (embedded ? ' pri' : '') + '">Skopírovať do schránky</button>');
         cp.onclick = function () {
           ta.select();
           if (navigator.clipboard) {
@@ -406,7 +414,8 @@
             catch (e) { UI.toast('Skopíruj to ručne.'); }
           }
         };
-        b.appendChild(dl); b.appendChild(cp); b.appendChild(ta);
+        if (embedded) { b.appendChild(cp); b.appendChild(ta); b.appendChild(dl); }
+        else { b.appendChild(dl); b.appendChild(cp); b.appendChild(ta); }
       }
     });
   }
